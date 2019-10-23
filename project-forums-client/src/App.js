@@ -7,6 +7,7 @@ import SignInPage from './Components/User/UserLoginComponent/Login'
 
 import * as ROUTES from './Constants/Routes';
 import { SignUpForm } from './Components/User/UserRegisterComponent/UserRegister';
+import { withFirebase } from '../src/Components/Firebase';
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +16,14 @@ class App extends Component {
     this.state = {
       authUser: null,
     }
+  }
+
+  componentDidMount() {
+    this.props.firebase.auth.onAuthStateChanged(authUser =>{
+      authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null })
+    })
   }
 
   render() {
@@ -43,4 +52,4 @@ class App extends Component {
   
 
 
-export default App;
+export default withFirebase(App);
