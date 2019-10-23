@@ -4,29 +4,33 @@ import { Link } from 'react-router-dom';
 import SignOutButton from '../User/UserLogoutComponent/Logout'
 import * as ROUTES from '../../Constants/Routes';
 
-const Navigation = () =>(
-    <div>
-        <ul>
-            <li>
-                <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-            </li>
-            <li>
+const Navigation = ({ authUser }) =>(
+<div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
+)
+
+const NavigationAuth = () => (
+    <ul>
+        <li>
+            <Link to={ROUTES.ACCOUNT}>Account</Link>
+        </li>
+        <li>
+            <Link to={ROUTES.FORUMS}>Forums</Link>
+        </li>
+        <li>
+            <SignOutButton />
+        </li>
+    </ul>
+)
+
+const NavigationNonAuth = () => (
+    <ul>
+        <li>
                 <Link to={ROUTES.FORUMS}>Forums</Link>
             </li>
             <li>
-                <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+                <Link to={ROUTES.SIGN_IN}>Sign In</Link>
             </li>
-            <li>
-                <Link to={ROUTES.ACCOUNT}>Account</Link>
-            </li>
-            <li>
-                <Link to={ROUTES.PASSWORD_FORGET}>Forgotten password?</Link>
-            </li>
-            <li>
-                <SignOutButton />
-            </li>
-        </ul>
-    </div>
-)
+    </ul>
+);
 
 export default Navigation;
