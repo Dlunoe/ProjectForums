@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import SignOutButton from '../User/UserLogoutComponent/Logout'
 import * as ROUTES from '../../Constants/Routes';
 
 const Navigation = () =>(
@@ -20,6 +21,9 @@ const Navigation = () =>(
             </li>
             <li>
                 <Link to={ROUTES.PASSWORD_FORGET}>Forgotten password?</Link>
+            </li>
+            <li>
+                <SignOutButton />
             </li>
         </ul>
     </div>
