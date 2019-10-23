@@ -10,6 +10,7 @@ class ForumsContainer extends Component{
         return(
             <div>
                 This is ForumContainer
+                {/* This will be used to house Forum Categories, which will contain topics within them */}
                 {ForumTopics}
             </div>
         )
