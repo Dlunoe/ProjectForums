@@ -6,6 +6,7 @@ import ForumsPage from '../src/Components/Forums/ForumContainer';
 import SignInPage from './Components/User/UserLoginComponent/Login'
 
 import * as ROUTES from './Constants/Routes';
+import { SignUpForm } from './Components/User/UserRegisterComponent/UserRegister';
 
 const App = () => (
   <Router>
@@ -16,6 +17,7 @@ const App = () => (
 
       <Route path={ROUTES.FORUMS} component={ForumsPage}/>
       <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+      <Route path={ROUTES.SIGN_UP} component={SignUpForm} />
     </div>
   </Router>
 )
