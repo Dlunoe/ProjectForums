@@ -1,35 +1,76 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 
-class Login extends Component{
-    constructor(){
-        super();
-        this.state={
-            username: '',
-            password: ''
-        }
+import { SignUpLink } from '../UserRegisterComponent/UserRegister';
+import { withFirebase } from '../../Firebase';
+import * as ROUTES from '../../../Constants/Routes';
+
+const SignInPage = () => (
+    <div>
+        <h1>Sign In</h1>
+        <SignInForm />
+        <SignUpLink />
+    </div>
+);
+
+const INITIAL_STATE = {
+    email: '',
+    password: '',
+    error: null,
+};
+
+
+
+
+class SignInFormBase extends Component{
+    constructor(props){
+        super(props);
+
+        this.state={...INITIAL_STATE};
     }
-    handleChange=(e)=>{
+
+    onChange=(e)=>{
         this.setState({
             [e.currentTarget.name]: e.currentTarget.value
         })
     }
-    handleSubmit=(e)=>{
-        console.log(this.state)
+    onSubmit=(e)=>{
+        const {email,password} = this.state;
+
+        this.props.firebase
+            .doSignInWithEmailAndPassword(email, password)
+            .then(() =>{
+                this.setState({...INITIAL_STATE});
+                this.props.history.push(ROUTES.FORUMS)
+            })
+            .catch(error => {
+                this.setState({ error });
+            })
+        e.preventDefault();
     }
     render(){
+        const { email,password,error } = this.state;
+
+        const isInvalid = 
+            password === '' ||
+            email === '';
+
         return(
             <div>
                 Log In:
-                <form>
-                    <label for="username">Username:</label>
-                    <input name="username" type="text" onChange={this.handleChange}/>
-                    <label for="password">Password:</label>
-                    <input type="text" name="password" onChange={this.handleChange}/>
-                    <input type="submit" value="Log In" />
+                <form onSubmit={this.onSubmit}>
+                    <input name="email" value={email} type="text" onChange={this.onChange} placeholder="Email Address"/>
+                    <input type="password" name="password" value={password} onChange={this.onChange} placeholder="Password"/>
+                    <button disabled={isInvalid} type="submit" value="Log In" />
+                    {error && <p>{error.message}</p>}
                 </form>
             </div>
         )
     }
 }
 
-export default Login;
+const SignInForm = withRouter(withFirebase(SignInFormBase));
+
+export default SignInPage;
+
+export { SignInForm };
