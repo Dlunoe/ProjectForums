@@ -8,6 +8,7 @@ import SignInPage from './Components/User/UserLoginComponent/Login'
 import * as ROUTES from './Constants/Routes';
 import { SignUpForm } from './Components/User/UserRegisterComponent/UserRegister';
 import { withFirebase } from '../src/Components/Firebase';
+import { AuthUserContext } from '../src/Components/Sessions';
 
 class App extends Component {
   constructor(props) {
@@ -33,17 +34,20 @@ class App extends Component {
 
   render() {
     return(
-      <Router>
-        <div>
-          <Navigation authUser={this.state.authUser}/>
+      <AuthUserContext.Provider value={this.state.authUser}>
+        <Router>
+          <div>
+            <Navigation />
 
-          <hr />
+            <hr />
 
-          <Route path={ROUTES.FORUMS} component={ForumsPage}/>
-          <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-          <Route path={ROUTES.SIGN_UP} component={SignUpForm} />
-        </div>
-      </Router>
+            <Route path={ROUTES.FORUMS} component={ForumsPage}/>
+            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+          < Route path={ROUTES.SIGN_UP} component={SignUpForm} />
+          </div>
+        </Router>
+      </AuthUserContext.Provider>
+      
     )
   }
 }
