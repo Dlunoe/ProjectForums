@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.listener = this.props.firebase.auth.onAuthStateChanged(
+    this.props.firebase.auth.onAuthStateChanged(
       authUser =>{
         authUser
           ? this.setState({ authUser })
@@ -27,15 +27,15 @@ class App extends Component {
     })
   }
 
-  componentWillUnmount(){
-    this.listener();
-  }
+  // componentWillUnmount(){
+  //   this.listener();
+  // }
 
   render() {
     return(
       <Router>
         <div>
-          <Navigation/>
+          <Navigation authUser={this.state.authUser}/>
 
           <hr />
 
