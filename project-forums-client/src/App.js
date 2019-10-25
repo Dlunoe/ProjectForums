@@ -7,20 +7,21 @@ import SignInPage from './Components/User/UserLoginComponent/Login'
 
 import * as ROUTES from './Constants/Routes';
 import { SignUpForm } from './Components/User/UserRegisterComponent/UserRegister';
-import { withAuthentication } from './Components/Sessions';
+import withAuthentication from './Components/Sessions/withAuthentication';
 
 const App = () => (
-  <Router>
+ <Router>
     <div>
-    <Navigation />
+      <Navigation />
 
-    <hr />
+      <hr />
 
-    <Route path={ROUTES.FORUMS} component={ForumsPage}/>
-    <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-    < Route path={ROUTES.SIGN_UP} component={SignUpForm} />
+      <Route path={ROUTES.FORUMS} component={ForumsPage}/>
+      <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+      <Route path={ROUTES.SIGN_UP} component={SignUpForm} />
     </div>
   </Router>
+  
 )
 
 
